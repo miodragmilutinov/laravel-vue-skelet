@@ -40,6 +40,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '~/plugins/api.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -92,5 +93,10 @@ export default {
   // https://tailwindcss.nuxtjs.org/getting-started/options
   tailwindcss: {
     configPath: 'tailwind.config.js'
+  },
+
+  // Frontend variables (not safe for credentials)
+  publicRuntimeConfig: {
+    apiBaseUrl
   },
 }

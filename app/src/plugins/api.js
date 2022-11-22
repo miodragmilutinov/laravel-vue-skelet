@@ -17,7 +17,6 @@ export default function ({ $axios, app, $config }, inject) {
   })
 
   api.onResponse((res) => {
-    console.log(res)
     return res.data
   })
 
