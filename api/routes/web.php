@@ -17,8 +17,4 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::get('/api/test', function () {
-    return ['data' => 'test data'];
-});
-
 require __DIR__.'/auth.php';
