@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import configs from "./src/configs";
 
 const apiBaseUrl = process.env.NODE_ENV === 'production'
   ? 'https://YOUR_URL_HERE' // or get it from process.ENV.YOUR_URL_HERE
@@ -12,8 +13,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Epicenter',
-    title: 'Epicenter',
+    titleTemplate: '%s - Starter Kit',
+    title: 'Starter Kit',
     htmlAttrs: {
       lang: 'en'
     },
@@ -29,7 +30,7 @@ export default {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'
       },
-      // ...configs.icons.map((href) => ({ rel: 'stylesheet', href }))
+      ...configs.icons.map((href) => ({ rel: 'stylesheet', href }))
     ]
   },
 
@@ -57,30 +58,25 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
-  ],
-
-  auth: {
-    strategies: {
-      laravelSanctum: {
-        provider: 'laravel/sanctum',
-        url: 'http://localhost'
+    ['@nuxtjs/axios', {
+      // Axios module configuration: https://go.nuxtjs.dev/config-axios
+      // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+      baseURL: apiBaseUrl,
+      credentials: true,
+    }],
+    ['@nuxtjs/auth-next', {
+      strategies: {
+        laravelSanctum: {
+          provider: 'laravel/sanctum',
+          url: 'http://localhost'
+        },
       },
-    },
-    redirect: {
-      login: '/auth/signin',
-      logout: '/auth/signin',
-    },
-  },
-
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: apiBaseUrl,
-    credentials: true,
-  },
+      redirect: {
+        login: '/auth/signin',
+        logout: '/auth/signin',
+      },
+    }],
+  ],
 
   router: {
     middleware: ['auth']
@@ -107,11 +103,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  },
-
-  // https://tailwindcss.nuxtjs.org/getting-started/options
-  tailwindcss: {
-    configPath: 'tailwind.config.js'
   },
 
   // Frontend variables (not safe for credentials)
