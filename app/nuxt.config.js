@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 import configs from "./src/configs";
+const { locale, availableLocales, fallbackLocale } = configs.locales
 
 const apiBaseUrl = process.env.NODE_ENV === 'production'
   ? 'https://YOUR_URL_HERE' // or get it from process.ENV.YOUR_URL_HERE
@@ -75,6 +76,19 @@ export default {
         login: '/auth/signin',
         logout: '/auth/signin',
       },
+    }],
+    ['@nuxtjs/i18n', {
+      detectBrowserLanguage: {
+        useCookie: true,
+        cookieKey: 'i18n_redirected'
+      },
+      locales: availableLocales,
+      lazy: true,
+      langDir: 'translations/',
+      defaultLocale: locale,
+      vueI18n: {
+        fallbackLocale
+      }
     }],
   ],
 

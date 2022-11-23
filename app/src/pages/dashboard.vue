@@ -35,7 +35,8 @@
 
 <script>
 export default {
-
+  name: "Dashboard",
+  layout: 'default',
   data: () => ({
     news: [],
     form: {
